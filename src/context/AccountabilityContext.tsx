@@ -719,99 +719,6 @@ export const AccountabilityProvider: React.FC<{ children: React.ReactNode }> = (
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
   };
 
-  // QA Simulation Triggers
-  const simulatePartnerAction = (type: 'checkin_done' | 'checkin_partial' | 'checkin_missed' | 'nudge' | 'simulate_48h_timeout') => {
-    if (type === 'simulate_48h_timeout') {
-      setMatchingState(prev => ({
-        ...prev,
-        waitingHours: 48,
-        pactAssistOffered: true,
-        isSearching: true
-      }));
-      addNotification({
-        type: 'pact_assist',
-        title: 'Pact Assist Available',
-        message: 'No human partner found yet after 48h. You can start immediately with Pact Assist while matching continues.'
-      });
-      return;
-    }
-
-    if (!partnership || !partnership.partner) return;
-    const partnerName = partnership.partner.name;
-
-    if (type === 'checkin_done') {
-      setPartnership(prev => prev ? ({
-        ...prev,
-        todayPartnerCheckIn: {
-          id: `chk_p_${Date.now()}`,
-          partnershipId: prev.id,
-          userId: prev.partner!.id,
-          goalId: prev.partnerGoal?.id || 'g',
-          date: new Date().toISOString().split('T')[0],
-          status: 'done',
-          note: 'Completed my commitment on schedule.',
-          timestamp: 'Just now'
-        }
-      }) : null);
-      addNotification({
-        type: 'partner_checkin',
-        title: `${partnerName} Checked In ✓`,
-        message: `${partnerName} completed today's commitment: "Completed on schedule."`
-      });
-    } else if (type === 'checkin_partial') {
-      setPartnership(prev => prev ? ({
-        ...prev,
-        todayPartnerCheckIn: {
-          id: `chk_p_${Date.now()}`,
-          partnershipId: prev.id,
-          userId: prev.partner!.id,
-          goalId: prev.partnerGoal?.id || 'g',
-          date: new Date().toISOString().split('T')[0],
-          status: 'partial',
-          note: 'Managed 45 mins. Logging honest partial.',
-          timestamp: 'Just now'
-        }
-      }) : null);
-    } else if (type === 'checkin_missed') {
-      setPartnership(prev => prev ? ({
-        ...prev,
-        todayPartnerCheckIn: {
-          id: `chk_p_${Date.now()}`,
-          partnershipId: prev.id,
-          userId: prev.partner!.id,
-          goalId: prev.partnerGoal?.id || 'g',
-          date: new Date().toISOString().split('T')[0],
-          status: 'missed',
-          note: 'Emergency delayed me past cutoff. Recovery active.',
-          timestamp: 'Just now'
-        }
-      }) : null);
-    } else if (type === 'nudge') {
-      addNotification({
-        type: 'nudge',
-        title: `Nudge from ${partnerName}`,
-        message: `Reminder: daily cutoff is approaching!`
-      });
-    }
-  };
-
-  const resetToDemoDefaults = () => {
-    localStorage.clear();
-    setIsAuthenticated(true);
-    setCurrentUser(CURRENT_USER);
-    setActiveGoal(INITIAL_USER_GOAL);
-    setPartnership(INITIAL_PARTNERSHIP);
-    setPactHistory(INITIAL_PACT_HISTORY);
-    setNotifications(INITIAL_NOTIFICATIONS);
-    setMessages(INITIAL_MESSAGES);
-    setMatchingState({
-      proposalsUsedThisWeek: 0,
-      waitingHours: 0,
-      pactAssistOffered: false,
-      isSearching: false
-    });
-  };
-
   return (
     <AccountabilityContext.Provider
       value={{
@@ -843,9 +750,7 @@ export const AccountabilityProvider: React.FC<{ children: React.ReactNode }> = (
         startNewPact,
         updateGoal,
         updatePreferences,
-        markNotificationsRead,
-        simulatePartnerAction,
-        resetToDemoDefaults
+        markNotificationsRead
       }}
     >
       {children}
