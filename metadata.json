@@ -1,0 +1,6 @@
+{
+  "name": "Pact - Human Accountability",
+  "description": "A human accountability network pairing you with compatible partners for study, fitness, and daily follow-through.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "/?source=pwa",
+  "name": "Pact - Human Accountability",
+  "short_name": "Pact",
+  "description": "Make a commitment. Build consistency. Stay accountable with a real partner.",
+  "start_url": "/",
+  "scope": "/",
+  "dir": "ltr",
+  "lang": "en",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#09090b",
+  "background_color": "#09090b",
+  "prefer_related_applications": false,
+  "categories": [
+    "productivity",
+    "lifestyle",
+    "education",
+    "health & fitness"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
